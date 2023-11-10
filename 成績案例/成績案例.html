@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./styles/index.css" />
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14"></script>
+  <div id="app" class="score-case">
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <th>編號</th>
+            <th>科目</th>
+            <th>成績</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item,index) in list " :key="item.id">
+            <td>{{index+1}}</td>
+            <td>{{item.subject}}</td>
+            <td :class="{red :item.score<60}">{{item.score}}</td>
+            <td><a @click="del(item.id)" href="#">删除</a></td>
+          </tr>
+
+        </tbody>
+
+        <tfoot>
+          <tr>
+            <td colspan="5">
+              <span>總分：{{totalScore}}</span>
+              <span style="margin-left: 50px">平均分：{{avergeScore}}</span>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="form">
+      <div class="form-item">
+        <div class="label">科目：</div>
+        <div class="input">
+          <input type="text" placeholder="請輸入科目" v-model.trim="subject" />
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="label">分數：</div>
+        <div class="input">
+          <input type="text" placeholder="請輸入分數" v-model.number="score" />
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="label"></div>
+        <div class="input">
+          <button @click="add" class="submit">添加</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <script src="../vue.js"></script> -->
+
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        list: [
+          { id: 1, subject: '國文', score: 20 },
+          { id: 7, subject: '數學', score: 99 },
+          { id: 12, subject: '英文', score: 70 },
+        ],
+        subject: '',
+        score: ''
+      },
+      computed: {
+        totalScore() {
+          return this.list.reduce((sum,item)=>sum+item.score , 0)
+        },
+        avergeScore(){
+          if(this.list.length===0)
+          return 0
+          return (this.totalScore/this.list.length).toFixed(2)
+        }
+      },
+      methods: {
+        del(id) {
+          this.list = this.list.filter(item => item.id !== id)
+        }
+        ,
+
+        add() {
+          if (!this.subject) {
+            alert('請輸入科目')
+            return
+          }
+          if (typeof this.score !== 'number')
+            alert('請輸入分數')
+          return
+
+          this.list.unshift({
+            id: +new Date(),
+            subject: this.subject,
+            score: this.score
+          })
+          this.subject = ''
+          this.score = ''
+        }
+      },
+
+
+    })
+  </script>
+</body>
+
+</html>

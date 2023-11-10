@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14"></script>
+    <div id="app">
+        <button @click="index--" v-show="index>0">上一頁</button>
+        <img :src="list[index]" alt="">
+        <button @click="index++" v-show="index < list.length-1 ">下一頁</button>
+    </div>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                index: 0,
+                list: [
+                    './images/b01.jpg',
+                    './images/b02.jpg',
+                    './images/b03.jpg',
+                    './images/b04.jpg',
+                    './images/b05.jpg',
+                    './images/b06.jpg',
+                    './images/b07.jpg',
+                    './images/b08.jpg',
+                    './images/b09.jpg'
+                ]
+
+            },
+            methods: {
+                // fn(){
+                //     let i = 0;
+
+                // }
+
+
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14"></script>
+    <div id="app">
+        <h1>書架</h1>
+        <ul>
+            <li v-for="(item,index) in booklist" :key="item.id">
+                <span>{{item.name}}</span>
+                <span>{{item.author}}</span>
+                <!--  -->
+                <button @click="del(item.id)">delete</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                booklist: [
+                    { id: 1, name: '<<紅樓夢>>', author: '曹雪芹' },
+                    { id: 2, name: '<<西遊記>>', author: '吳承恩' },
+                    { id: 3, name: '<<水滸傳>>', author: '施耐庵' },
+                    { id: 4, name: '<<三國演義>>', author: '羅貫中' }
+                ]
+            },
+            methods: {
+                del(id) {
+                    // console.log('delete');
+                    // console.log(id);
+                    this.booklist = this.booklist.filter(item => item.id !== id)
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
